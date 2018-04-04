@@ -1,0 +1,42 @@
+{
+  "name": "anacreation/lms",
+  "authors": [
+	{
+	  "name": "Xavier Au",
+	  "email": "xavier.au@anacreation.com"
+	}
+  ],
+  "description": "The A & A Creation Learning Management System.",
+  "type": "library",
+  "require": {
+	"php": ">=7.1.0",
+	"laravel/framework": "5.5.*",
+	"anacreation/etvtest": "dev-master",
+	"davejamesmiller/laravel-breadcrumbs": "4.*",
+	"spatie/laravel-medialibrary": "^7.0",
+	"unisharp/laravel-filemanager": "^1.8"
+  },
+  "require-dev": {
+	"barryvdh/laravel-debugbar": "^3.1",
+	"filp/whoops": "~2.0",
+	"fzaninotto/faker": "~1.4",
+	"mockery/mockery": "~1.0",
+	"phpunit/phpunit": "~6.0",
+	"symfony/thanks": "^1.0"
+  },
+  "autoload": {
+	"classmap": [
+	  "src/factories",
+	  "src/database/seeds"
+	],
+	"psr-4": {
+	  "Anacreation\\Lms\\": "src/"
+	},
+	"extra": {
+	  "laravel": {
+		"providers": [
+		]
+	  }
+	}
+  }
+}
