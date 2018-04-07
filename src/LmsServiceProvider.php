@@ -92,7 +92,7 @@ class LmsServiceProvider extends ServiceProvider
             __DIR__ . '/public/assets/js/app.js'      => public_path('js/vendor/lms/app.js'),
             __DIR__ . '/public/assets/js/manifest.js' => public_path('js/vendor/lms/manifest.js'),
             __DIR__ . '/public/assets/js/vendor.js'   => public_path('js/vendor/lms.js'),
-            __DIR__ . '/public/assets/css/app.css'    => public_path('css/vendor/app.css'),
+            __DIR__ . '/public/assets/css/app.css'    => public_path('css/vendor/lms/app.css'),
             __DIR__ . '/resources/assets/js/ckeditor' => public_path('js/vendor/ckeditor'),
         ], 'public');
     }
