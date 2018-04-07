@@ -89,9 +89,10 @@ class LmsServiceProvider extends ServiceProvider
     private function publishPublishAssets() {
 
         $this->publishes([
-            __DIR__ . '/public/assets/js/app.js' => public_path('assets/js/vendor/lms/app.js'),
+            __DIR__ . '/public/assets/js/app.js'      => public_path('assets/js/vendor/lms/app.js'),
             __DIR__ . '/public/assets/js/manifest.js' => public_path('assets/js/vendor/lms/manifest.js'),
-            __DIR__ . '/public/assets/js/vendor.js' => public_path('assets/js/vendor/lms.js'),
+            __DIR__ . '/public/assets/js/vendor.js'   => public_path('assets/js/vendor/lms.js'),
+            __DIR__ . '/public/assets/css/app.css'    => public_path('assets/css/vendor/app.css'),
             __DIR__ . '/resources/assets/js/ckeditor' => public_path('assets/js/vendor/ckeditor'),
         ], 'public');
     }
