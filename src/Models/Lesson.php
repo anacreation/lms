@@ -60,7 +60,8 @@ class Lesson extends Model
 
     public function parents(): Relation {
         return $this->belongsToMany(Lesson::class, 'collection_lesson',
-            'lesson_id', 'collection_id')->withPivot('collection_id','lesson_id','order');
+            'lesson_id', 'collection_id')
+                    ->withPivot('collection_id', 'lesson_id', 'order');
     }
 
     public function collections(): Relation {
@@ -84,6 +85,10 @@ class Lesson extends Model
         return $this->hasMany(UserLessonStatus::class);
     }
 
+    public function certification(): Relation {
+        return $this->hasOne(Certification::class);
+    }
+
     #endregion
 
     # region scope
@@ -100,8 +105,8 @@ class Lesson extends Model
 
     public function scopeInEnrollmentPeriod(Builder $query): Builder {
         return $query->where([
-            ['enrollment_start', ' <= ', Carbon::now()],
-            ['enrollment_end', ' > ', Carbon::now()],
+            ['enrollment_start', '<=', Carbon::now()],
+            ['enrollment_end', '>', Carbon::now()],
         ])->orWhere([
             ['enrollment_start', '=', null],
             ['enrollment_end', '=', null]
@@ -228,7 +233,7 @@ class Lesson extends Model
 
     }
 
-    public function isFulfilled(AbstractUser $user): bool {
+    public function isFulfilled(LmsUser $user): bool {
         return !!UserLessonStatus::where([
             ['user_id', '=', $user->id,],
             ['lesson_id', '=', $this->id,],
@@ -373,5 +378,9 @@ class Lesson extends Model
 
     public function getOrderedChildren(): Collection {
         return $this->children()->orderBy('pivot_order')->get();
+    }
+
+    public function hasCertification(): bool {
+        return !!$this->certification;
     }
 }

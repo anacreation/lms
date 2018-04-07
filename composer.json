@@ -1,13 +1,14 @@
 {
   "name": "anacreation/lms",
+  "type": "library",
+  "license": "MIT",
+  "description": "A & A Creation Learning Management System.",
   "authors": [
 	{
 	  "name": "Xavier Au",
 	  "email": "xavier.au@anacreation.com"
 	}
   ],
-  "description": "The A & A Creation Learning Management System.",
-  "type": "library",
   "require": {
 	"php": ">=7.1.0",
 	"laravel/framework": "5.5.*",
@@ -24,11 +25,8 @@
 	"phpunit/phpunit": "~6.0",
 	"symfony/thanks": "^1.0"
   },
+  "minimum-stability": "dev",
   "autoload": {
-	"classmap": [
-	  "src/factories",
-	  "src/database/seeds"
-	],
 	"psr-4": {
 	  "Anacreation\\Lms\\": "src/"
 	},

@@ -2,7 +2,9 @@
 
 namespace Anacreation\Lms;
 
+use Anacreation\Lms\Events\LessonCompletionEvent;
 use Anacreation\Lms\Events\UserCreated;
+use Anacreation\Lms\Listeners\CreateCertificationRecord;
 use Anacreation\Lms\Listeners\UserCreatedEventListener;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -16,8 +18,11 @@ class LmsServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        UserCreated::class => [
+        UserCreated::class           => [
             UserCreatedEventListener::class
+        ],
+        LessonCompletionEvent::class => [
+            CreateCertificationRecord::class
         ],
     ];
 

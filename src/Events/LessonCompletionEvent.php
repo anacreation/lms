@@ -2,7 +2,7 @@
 
 namespace Anacreation\Lms\Events;
 
-use Anacreation\Lms\Models\AbstractUser;
+use Anacreation\Lms\Models\LmsUser;
 use Anacreation\Lms\Models\Lesson;
 use App\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -28,7 +28,7 @@ class LessonCompletionEvent
      * @param \App\User                      $user
      * @param \Anacreation\Lms\Models\Lesson $lesson
      */
-    public function __construct(AbstractUser $user, Lesson $lesson) {
+    public function __construct(LmsUser $user, Lesson $lesson) {
         //
         $this->user = $user;
         $this->lesson = $lesson;

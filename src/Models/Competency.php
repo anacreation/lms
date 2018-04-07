@@ -18,7 +18,7 @@ class Competency extends Model implements IsPrerequisiteRequirementInterface
     }
 
     // helpers
-    public function isFulfilled(User $user): bool {
+    public function isFulfilled(LmsUser $user): bool {
         return !!$this->users()->find($user->id);
     }
 

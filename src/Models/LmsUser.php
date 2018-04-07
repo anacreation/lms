@@ -23,7 +23,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 
-class AbstractUser extends Authenticatable
+class LmsUser extends Authenticatable
 {
     use Notifiable, RoleAndPermission, SoftDeletes;
 
@@ -52,8 +52,17 @@ class AbstractUser extends Authenticatable
 
     #region Relation
 
+    public function certifications(): Relation {
+        return $this->belongsToMany(Certification::class)
+                    ->withPivot('created_at');
+    }
+
     public function competencies(): Relation {
         return $this->belongsToMany(Competency::class)->withPivot('created_at');
+    }
+
+    public function curricula(): Relation {
+        return $this->belongsToMany(Curriculum::class)->withPivot('due_date');
     }
 
     public function lessons(): Relation {
@@ -62,10 +71,6 @@ class AbstractUser extends Authenticatable
             'created_at'
         ])->using(UserLessonStatusModel::class)
                     ->as('status');
-    }
-
-    public function curricula(): Relation {
-        return $this->belongsToMany(Curriculum::class)->withPivot('due_date');
     }
 
     public function supervisor(): Relation {
@@ -316,5 +321,31 @@ class AbstractUser extends Authenticatable
                     ->first()->status === UserLessonStatus::FAILED;
     }
 
+    public function isCertified(Lesson $lesson): bool {
+        // lesson has certification
+        if ($lesson->hasCertification()) {
+            return $this->hasCompletedLesson($lesson);
+        }
+
+        return false;
+        // user has valid certification relation
+        // then return true
+        // otherwise return false
+    }
+
+    public function certificationIsValid(Certification $certification): bool {
+
+        if ($certification->validity_days > 0) {
+            $pivot = $this->certifications()->whereId($certification->id)
+                          ->latest()
+                          ->first()->pivot;
+
+            $expiryDate = $pivot->created_at->addDays($certification->validity_days);
+
+            return $expiryDate->gt(Carbon::now());
+        }
+        
+        return true;
+    }
 
 }
