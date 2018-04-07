@@ -20,11 +20,12 @@ class CreateCertificationsTable extends Migration
             $table->boolean('use_custom_certification')->default(false);
             $table->timestamps();
         });
+
         Schema::create('certification_user', function (Blueprint $table) {
-            $table->unsignedInteger('certification_id')->unllable();
-            $table->unsignedInteger('user_id')->unllable();
+            $table->unsignedInteger('certification_id');
             $table->foreign('certification_id')->references('certifications')
                   ->on('id')->onDelete('cascade');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('users')
                   ->on('id')->onDelete('cascade');
             $table->timestamps();
