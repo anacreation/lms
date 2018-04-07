@@ -23,11 +23,11 @@ class CreateCertificationsTable extends Migration
 
         Schema::create('certification_user', function (Blueprint $table) {
             $table->unsignedInteger('certification_id');
-            $table->foreign('certification_id')->references('certifications')
-                  ->on('id')->onDelete('cascade');
+            $table->foreign('certification_id')->references('id')
+                  ->on('certifications')->onDelete('cascade');
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('users')
-                  ->on('id')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')
+                  ->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
