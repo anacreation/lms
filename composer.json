@@ -34,7 +34,8 @@
   "extra": {
 	"laravel": {
 	  "providers": [
-		"Anacreation\\Lms\\LmsServiceProvider"
+		"Anacreation\\Lms\\LmsServiceProvider",
+		"Anacreation\\Etvtest\\EtvTestServiceProvider"
 	  ]
 	}
   }
