@@ -29,12 +29,12 @@
   "autoload": {
 	"psr-4": {
 	  "Anacreation\\Lms\\": "src/"
-	},
-	"extra": {
-	  "laravel": {
-		"providers": [
-		]
-	  }
+	}
+  },
+  "extra": {
+	"laravel": {
+	  "providers": [
+	  ]
 	}
   }
 }
