@@ -1,1 +1,4 @@
 /.idea
+/node_modules
+webpack.mix.js
+package-lock.json

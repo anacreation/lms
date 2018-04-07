@@ -50,6 +50,8 @@ class LmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/lms.php' => config_path('lms.php'),
         ]);
+
+        $this->publishPublishAssets();
     }
 
     /**
@@ -82,5 +84,15 @@ class LmsServiceProvider extends ServiceProvider
         foreach ($this->subscribe as $subscriber) {
             Event::subscribe($subscriber);
         }
+    }
+
+    private function publishPublishAssets() {
+
+        $this->publishes([
+            __DIR__ . '/public/assets/js/app.js' => public_path('assets/js/vendor/lms/app.js'),
+            __DIR__ . '/public/assets/js/manifest.js' => public_path('assets/js/vendor/lms/manifest.js'),
+            __DIR__ . '/public/assets/js/vendor.js' => public_path('assets/js/vendor/lms.js'),
+            __DIR__ . '/resources/assets/js/ckeditor' => public_path('assets/js/vendor/ckeditor'),
+        ], 'public');
     }
 }
