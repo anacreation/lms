@@ -5,7 +5,8 @@
               @submit.prevent="submit">
             <input type="hidden" name="_token" :value="token">
             <component :is="getComponent(question)"
-                       v-for="question in test.questions"
+                       v-for="(question, index) in test.questions"
+                       :index="index+1"
                        :question="question"
                        :answers="submitted_answers(question)"
                        :key="question.id"></component>

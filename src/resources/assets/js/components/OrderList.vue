@@ -1,8 +1,10 @@
 <script>
     import Sortable from "sortablejs"
+    import deleteTableItem from "../mixins/deleteTableItem"
 
     export default {
       name   : "order-list",
+      mixins : [deleteTableItem],
       data() {
         return {
           list: null
@@ -13,25 +15,25 @@
         this.list = new Sortable(el)
       },
       methods: {
-        deleteItem(url) {
-          console.log(url)
-        },
         updateOrder(url) {
-          console.log(url)
-          console.log(this.list)
-          //console.log(this.list.el)
           const data = _.map(this.list.el.querySelectorAll('li'), (li, index) => {
             return {
               order: index,
               id   : li.dataset.id
             }
           })
-
           axios.post(url, data)
                .then(res => window.location.reload())
-
-          console.log(data)
         },
+        removeDom({data}) {
+          const id = data.id
+          const list = this.$refs.sotableList
+
+          if (list && id) {
+            const el = list.querySelector('li[data-id="' + id + '"]')
+            if (el) el.remove()
+          }
+        }
       }
 
     }

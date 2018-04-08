@@ -15,8 +15,7 @@
 		                <a href="{{route('tests.questions.browse', $test)}}"
 		                   class="btn btn-success btn-sm float-right mr-3">Add from Existing Questions</a>
 	                </div>
-	
-			        <table-actions inline-template>
+			        <div class="card-body">
 				        <order-list inline-template>
 							<div class=>
 								<ul class="list-unstyled list-inline col-sm-12">
@@ -30,7 +29,8 @@
 								<ol class="list-unstyled list-inline col-sm-12 units"
 								    ref="sotableList">
 									 @foreach($test->questions as $index=>$question)
-										<li class="row mb-2 p-2 border border-light rounded" data-id="{{$question->id}}">
+										<li class="row mb-2 p-2 border border-light rounded"
+										    data-id="{{$question->id}}">
 										<div class="col-sm-1">{{$index+1}}</div>
 					                    <div class="col-sm-7">
 					                        <div class="question-content">{!! $question->content !!}</div>
@@ -61,11 +61,12 @@
 									
 								</ol>
 								<div class="col-12">
-									<button class="btn btn-info btn-block" @>Update Order</button>
+									<button class="btn btn-info btn-block"
+									        @click.prevent="updateOrder('here')">Update Order</button>
 								</div>
 							</div>
 						</order-list>
-			        </table-actions>
+			        </div>
 	            </div>
 	        </div>
 	    </div>

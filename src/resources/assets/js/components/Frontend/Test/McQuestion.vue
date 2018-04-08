@@ -1,6 +1,8 @@
 <template>
     <div class="question">
-        <section class="content" v-html="question.content"></section>
+        <section class="content">
+            <span>{{index}}.</span><span v-html="question.content"></span>
+        </section>
         <section class="choices">
             <choice v-for="choice in question.choices" :key="choice.id"
                     :editable="answers===null"
@@ -18,7 +20,7 @@
 
     export default {
       name      : "mc-question",
-      props     : ['question', 'answers'],
+      props     : ['question', 'answers', 'index'],
       components: {
         Choice
       },

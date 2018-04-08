@@ -22,7 +22,7 @@ class CreateLessonTextContentsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
+     * @return void2018_02_28_103153_create_lessons_table.php
      */
     public function down() {
         Schema::dropIfExists('lesson_text_contents');

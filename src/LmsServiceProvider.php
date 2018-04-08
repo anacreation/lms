@@ -6,12 +6,20 @@ use Anacreation\Lms\Events\LessonCompletionEvent;
 use Anacreation\Lms\Events\UserCreated;
 use Anacreation\Lms\Listeners\CreateCertificationRecord;
 use Anacreation\Lms\Listeners\UserCreatedEventListener;
+use Anacreation\Lms\Requests\StoreUserRequest;
+use Anacreation\Lms\Swap\Contracts\ICreateUser;
+use Anacreation\Lms\Swap\Contracts\User\IStoreUserRequest;
+use Anacreation\Lms\Swap\Implementations\User\CreateUser;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 class LmsServiceProvider extends ServiceProvider
 {
+    private $bindings = [
+        ICreateUser::class       => CreateUser::class,
+        IStoreUserRequest::class => StoreUserRequest::class,
+    ];
     /**
      * The event handler mappings for the application.
      *
@@ -52,6 +60,10 @@ class LmsServiceProvider extends ServiceProvider
         ]);
 
         $this->publishPublishAssets();
+
+        foreach ($this->bindings as $interface => $implementation) {
+            app()->bind($interface, $implementation);
+        }
     }
 
     /**

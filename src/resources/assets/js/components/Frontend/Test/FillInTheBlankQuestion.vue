@@ -1,6 +1,8 @@
 <template>
     <div class="question">
-        <section class="content" v-html="question.content"></section>
+        <section class="content">
+            <span v-text="index"></span><span v-html="question.content"></span>
+        </section>
         <section class="choices">
             <input-field
                     :editable="answers===null"

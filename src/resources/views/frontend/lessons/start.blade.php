@@ -3,7 +3,7 @@
 @section("content")
 	<div class="container justify-content-center">
 		{!! \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::render("start", $lesson) !!}
-		<h1>Start Lesson: {{$lesson->getName()}}</h1>
+		<h1>{{$lesson->getName()}}</h1>
 		
 		@foreach($lesson->contents as $content)
 			<div>{!! $content->content->content !!}</div>

@@ -60,6 +60,7 @@ class CreateLessonsTable extends Migration
      * @return void
      */
     public function down() {
+        Schema::dropIfExists('instructor_lesson');
         Schema::dropIfExists('collection_lesson');
         Schema::dropIfExists('lessons');
     }

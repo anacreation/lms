@@ -18,7 +18,6 @@ import Ckeditor from "vue-ckeditor2"
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component("select-prerequisites", require("./components/SelectPrerequisite"))
 Vue.component("lesson-edit-form", require("./components/LessonEditForm"))
 Vue.component("vue-select", VueSelect)

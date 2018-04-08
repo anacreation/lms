@@ -132,7 +132,7 @@ class TestQuestionsController extends Controller
         $test->questions()->sync($validatedData['question_ids']);
 
         return $request->ajax() ? response()->json([
-            'status' => 'completed'
+            'status' => 'completed',
         ]) : redirect()
             ->route("tests.questions.index", $test)
             ->withStatus("Question updated.");

@@ -4,12 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
-				<h4>Categories</h4>
-				<ul class="list-unstyled">
-					<li><a>Econ</a></li>
-					<li><a>Finance</a></li>
-					<li><a>Math</a></li>
-				</ul>
+				@include("lms::frontend.lessons.components.tag_list")
 			</div>
 			<div class="col-sm-9">
 				<div class="row">

@@ -11,11 +11,9 @@
         this.type = data ? "_db" : "new"
         this.active = 1
       }
-
       setAnswer(answer) {
         this.is_corrected = !answer ? false : answer.content.map(ans => parseInt(ans)).indexOf(this.id) > -1
       }
-
       setInActive() {
         this.active = 0
       }

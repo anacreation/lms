@@ -5,10 +5,10 @@
 		    <img class="img-fluid"
 		         src="{{$lesson->getFirstMediaUrl('coverPic')}}" />
 	    </div>
-	            <div class="card-body"
-	                 style="height: 150px; overflow: hidden">
-			        <h3>{{$lesson->title}}</h3>
-			        <div class="lesson-summary">{!! $lesson->summary !!}</div>
-	            </div>
+        <div class="card-body"
+             style="height: 150px; overflow: hidden">
+	        <h3>{{$lesson->title}}</h3>
+	        {{--<div class="lesson-summary">{!! $lesson->summary !!}</div>--}}
+        </div>
     </a>
 </div>

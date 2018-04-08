@@ -54,7 +54,11 @@
           formData.append('page_number', 1)
           axios.post(e.target.action, formData).then(() => {
             this.successAlert("Question updated!")
-            window.location.href = this.redirectUrl
+            if (this.refresh === true) {
+              window.location.reload()
+            } else {
+              window.location.href = this.redirectUrl
+            }
           })
         },
         addChoice(choice = null) {

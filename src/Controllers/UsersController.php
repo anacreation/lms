@@ -4,8 +4,11 @@ namespace Anacreation\Lms\Controllers;
 
 use Anacreation\Lms\Events\UserCreated;
 use Anacreation\Lms\Models\Role;
+use Anacreation\Lms\Swap\Contracts\ICreateUser;
+use Anacreation\Lms\Swap\Contracts\User\IStoreUserRequest;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -37,32 +40,16 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $validatedData = $this->validate($request, [
-            "email"         => "required|email|unique:users",
-            "name"          => "required",
-            "supervisor_id" => "nullable|in:" . implode(",",
-                    User::pluck('id')->toArray()),
-            "role_ids"      => "required",
-            "role_ids.*"    => "in:" . implode(",",
-                    Role::pluck('id')->toArray()),
-        ]);
+    public function store(IStoreUserRequest $request) {
+
+        /** @var FormRequest $request */
+        $validatedData = $request->validated();
 
         $password = str_random(8);
 
-        $newUser = new User();
-        $newUser->name = $validatedData['name'];
-        $newUser->email = $validatedData['email'];
-        $newUser->password = bcrypt($password);
-        $newUser->need_reset_password = true;
-        if (isset($validatedData["supervisor_id"])) {
-            $newUser->supervisor_id = $validatedData["supervisor_id"];
-        }
-        $newUser->save();
+        $instance = app()->make(ICreateUser::class);
 
-        foreach ($validatedData['role_ids'] as $roleId) {
-            $newUser->assignRole(Role::findOrFail($roleId));
-        }
+        $newUser = $instance->create($validatedData, $password);
 
         event(new UserCreated($newUser, $password));
 
