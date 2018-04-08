@@ -27,28 +27,6 @@ class LmsUser extends Authenticatable
 {
     use Notifiable, RoleAndPermission, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'supervisor_id',
-    ];
-
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
 
     #region Relation
 
@@ -344,7 +322,7 @@ class LmsUser extends Authenticatable
 
             return $expiryDate->gt(Carbon::now());
         }
-        
+
         return true;
     }
 

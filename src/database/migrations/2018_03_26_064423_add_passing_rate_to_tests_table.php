@@ -12,9 +12,12 @@ class AddPassingRateToTestsTable extends Migration
      * @return void
      */
     public function up() {
-        Schema::table("tests", function (Blueprint $table) {
-            $table->unsignedDecimal('passing_rate')->default(50.0);
-        });
+        if (!Schema::hasColumn('tests', 'passing_rate')) {
+            Schema::table("tests", function (Blueprint $table) {
+                $table->unsignedDecimal('passing_rate')->default(50.0);
+            });
+        }
+
     }
 
     /**
@@ -23,6 +26,10 @@ class AddPassingRateToTestsTable extends Migration
      * @return void
      */
     public function down() {
-        //
+        if (Schema::hasColumn('tests', 'passing_rate')) {
+            Schema::table("tests", function (Blueprint $table) {
+                $table->dropColumn('passing_rate');
+            });
+        }
     }
 }

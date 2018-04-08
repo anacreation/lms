@@ -6,6 +6,8 @@
  * Time: 2:10 PM.
  */
 
+use Anacreation\Lms\Middleware\ResetPasswordNeeded;
+
 Route::group([
     'namespace' => 'Anacreation\\Lms\\Controllers',
 ], function () {
@@ -64,7 +66,7 @@ Route::group([
                     });
 
                 Route::group([
-                    'middleware' => ['auth', 'password.reset'],
+                    'middleware' => ['auth', ResetPasswordNeeded::class],
                 ],
                     function () {
                         Route::get('/home', 'Frontend\\LessonsController@index')
