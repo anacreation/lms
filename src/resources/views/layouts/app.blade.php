@@ -8,147 +8,38 @@
 	<!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Easy LMS') }}</title>
 	
 	<!-- Styles -->
     <link href="{{ asset('css/vendor/lms/app.css') }}" rel="stylesheet">
-    <style>
-        span.invalid-feedback {
-	        display: flex;
-        }
-
-        td.question-content-container {
-	        display: table-cell;
-	        position: relative;
-        }
-
-        div.question-content {
-	        max-height: 100px;
-	        width: 100%;
-	        max-width: 600px;
-	        overflow: scroll;
-        }
-
-        div.question-content:hover {
-	        /*height: auto;*/
-        }
-
-        .input-group-append .btn-group-toggle label:first-child {
-	        border-radius: 0;
-        }
-    </style>
+	
+	@stack('styles')
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse"
-                     id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-	                    @if(Auth::user())
-		                    <li><a class="nav-link {{ Request::is('lessons/catalogue')?'active':''}}"
-		                           href="{{route('catalogue')}}">Courses Catalogue</a></li>
-	                    @endif
-	
-	                    @if(Auth::user() and Auth::user()->hasPermission("index_user"))
-		                    <li><a class="nav-link {{Request::is('admin/users*')?'active':''}}"
-		                           href="{{route('users.index')}}">Users</a></li>
-	                    @endif
-	
-	                    @if(Auth::user() and Auth::user()->hasPermission("index_curriculum"))
-		                    <li><a class="nav-link {{Request::is('admin/curricula*')?'active':''}}"
-		                           href="{{route('curricula.index')}}">Curricula</a></li>
-	                    @endif
-	
-	
-	                    @if(Auth::user() and Auth::user()->isRole('instructor'))
-		                    <li class="nav-item dropdown">
-                                <a id="navbarDropdown"
-                                   class="nav-link dropdown-toggle" href="#"
-                                   role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    Instructor Settings <span
-			                                class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown">
-		
-		                    @if(Auth::user() and Auth::user()->hasPermission("index_lesson"))
-		                                <a class="nav-link {{ Request::is('admin/lessons*')?'active':''}}"
-		                                   href="{{route('lessons.index')}}">Courses</a>
-	                                @endif
-	                                @if(Auth::user() and Auth::user()->hasPermission("index_test"))
-		                                <a class="nav-link {{Request::is('admin/tests*')?'active':''}}"
-		                                   href="{{route('tests.index')}}">Tests</a>
-	                                @endif
-                                </div>
-                            </li>
-	                    @endif
-	
-	
-	                    @if(Auth::user() and Auth::user()->hasSubordinates())
-		                    <li><a class="nav-link {{Request::is('subordinates')?'active':''}}"
-		                           href="{{route('subordinates')}}">Subordinates</a></li>
-	                    @endif
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-	                    @guest
-		                    <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-		                    <li><a class="nav-link"
-		                           href="{{ route('register') }}">Register</a></li>
-	                    @else
-		                    <li class="nav-item dropdown">
-                                <a id="navbarDropdown"
-                                   class="nav-link dropdown-toggle" href="#"
-                                   role="button" data-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span
-			                                class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu"
-                                     aria-labelledby="navbarDropdown">
-                                    <a href="{{route('my.info')}}"
-                                       class="dropdown-item">My Info</a>
-                                    <a href="{{route('my.courses')}}"
-                                       class="dropdown-item">My Courses</a>
-                                    <a class="dropdown-item"
-                                       href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form"
-                                          action="{{ route('logout') }}"
-                                          method="POST" style="display: none;">
-                                        {{csrf_field()}}
-                                    </form>
-                                </div>
-                            </li>
-	                    @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
+    <div id="app" class="wrapper">
+	    <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+	         <div class="container">
+		         <a class="navbar-brand" href="{{ url('/home') }}">
+		         {{ config('app.name', 'Easy LMS') }}
+		         </a>
+		         <button class="navbar-toggler" type="button"
+		                 data-toggle="collapse"
+		                 data-target="#navbarSupportedContent"
+		                 aria-controls="navbarSupportedContent"
+		                 aria-expanded="false" aria-label="Toggle navigation">
+		         <span class="navbar-toggler-icon"></span>
+		         </button>
+		         
+		         <div class="collapse navbar-collapse"
+		              id="navbarSupportedContent">
+			         
+		             @include("lms::layouts.partials.leftNavbar")
+			
+			         @include("lms::layouts.partials.rightNavbar")
+		         </div>
+	         </div>
+         </nav>
+	    <main class="py-4">
             @yield('content')
         </main>
     </div>
@@ -157,6 +48,6 @@
     <script src="{{asset('js/vendor/ckeditor/ckeditor.js')}}"></script>
     <script src="{{ asset('js/vendor/lms/manifest.js') }}"></script>
     <script src="{{ asset('js/vendor/lms.js') }}"></script>
-    <script src="{{ asset('js/vendor/lms/app.js') }}"></script>
+    <script src="{{ asset('js/vendor/lms/app.js') }}"></script>s
 </body>
 </html>

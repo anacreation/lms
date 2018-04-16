@@ -10,6 +10,7 @@ use Anacreation\Lms\Requests\StoreUserRequest;
 use Anacreation\Lms\Swap\Contracts\ICreateUser;
 use Anacreation\Lms\Swap\Contracts\User\IStoreUserRequest;
 use Anacreation\Lms\Swap\Implementations\User\CreateUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
@@ -64,6 +65,8 @@ class LmsServiceProvider extends ServiceProvider
         foreach ($this->bindings as $interface => $implementation) {
             app()->bind($interface, $implementation);
         }
+
+        $this->extendBlade();
     }
 
     /**
@@ -107,5 +110,11 @@ class LmsServiceProvider extends ServiceProvider
             __DIR__ . '/public/assets/css/app.css'    => public_path('css/vendor/lms/app.css'),
             __DIR__ . '/resources/assets/js/ckeditor' => public_path('js/vendor/ckeditor'),
         ], 'public');
+    }
+
+    private function extendBlade() {
+        Blade::if('authorized', function (string $permissionCode) {
+            return !!optional(Auth::user()->hasPermission($permissionCode));
+        });
     }
 }
