@@ -13,6 +13,7 @@ use Anacreation\Lms\Swap\Implementations\User\CreateUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class LmsServiceProvider extends ServiceProvider
@@ -50,6 +51,7 @@ class LmsServiceProvider extends ServiceProvider
     public function boot() {
 
         Blade::doubleEncode();
+        Schema::defaultStringLength(191);
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->registerEvents();
